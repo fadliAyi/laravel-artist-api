@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ArtistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('artist')->group(function () {
+    Route::get('/', [ArtistController::class, 'list']);
+    Route::post('/', [ArtistController::class, 'store']);
+    Route::get('{id}', [ArtistController::class, 'show']);
+    Route::put('{id}', [ArtistController::class, 'update']);
+    Route::delete('{id}', [ArtistController::class, 'destroy']);
 });
